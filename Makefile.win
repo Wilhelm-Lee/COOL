@@ -1,0 +1,42 @@
+# Project: COOL
+# Makefile created by Embarcadero Dev-C++ 6.3
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+RES      = obj/COOL_private.res
+OBJ      = obj/main.o obj/_array.o obj/_var.o obj/iands.o $(RES)
+LINKOBJ  = obj/main.o obj/_array.o obj/_var.o obj/iands.o $(RES)
+LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc -lm -lm -pg -g3
+INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
+CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+BIN      = ../../../Desktop/Documents/Projects/COOL_MinGW/build/Debug/COOL_MinGW.exe
+CXXFLAGS = $(CXXINCS) -O2 -std=c99 -Wall -pg -g3
+CFLAGS   = $(INCS) -O2 -std=c99 -Wall -pg -g3
+DEL      = C:\Program Files (x86)\Embarcadero\Dev-Cpp\devcpp.exe INTERNAL_DEL
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${DEL} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+obj/main.o: src/main.c
+	$(CC) -c src/main.c -o obj/main.o $(CFLAGS)
+
+obj/_array.o: src/_array.c
+	$(CC) -c src/_array.c -o obj/_array.o $(CFLAGS)
+
+obj/_var.o: src/_var.c
+	$(CC) -c src/_var.c -o obj/_var.o $(CFLAGS)
+
+obj/iands.o: src/iands.c
+	$(CC) -c src/iands.c -o obj/iands.o $(CFLAGS)
+
+obj/COOL_private.res: COOL_private.rc 
+	$(WINDRES) -i COOL_private.rc --input-format=rc -o obj/COOL_private.res -O coff 
+

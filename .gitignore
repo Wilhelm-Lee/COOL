@@ -1,0 +1,15 @@
+[...]
+Carnival.layout
+Carnival.dev
+Carnival_private.*
+inter_out.h.gch
+*.o
+*.a
+*~
+*.uxl
+*.desktop
+exe/
+obj/
+log/
+cfg/
+files/

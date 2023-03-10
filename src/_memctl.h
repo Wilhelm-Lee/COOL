@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -28,11 +28,6 @@ extern "C" {
 # include <stdint.h>
 # include "_rtn.h"
 # include "_array.h"
-
-/* Extern from _exception.h */
-extern inline void
-THROW(excep_e e, const char *__restrict__ _file, long int _line,
-      const char *__restrict__ _func, const char *__restrict__ _FMT, ...);
 
 # define _MEMSTK_MAX UINT16_MAX
 

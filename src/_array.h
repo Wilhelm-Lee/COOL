@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -30,11 +30,6 @@ extern "C" {
 # include "_var.h"
 # include "_rtn.h"
 
-/* Extern from _exception.h */
-extern inline void
-THROW(excep_e e, const char *__restrict__ _file, long int _line,
-      const char *__restrict__ _func, const char *__restrict__ _FMT, ...);
-
 # ifndef ARRAY_T
 typedef var_t* array_t;
 #  define ARRAY_T
@@ -45,6 +40,9 @@ typedef var_t* array_t;
 typedef array_t* varrp;
 #  define VARRP
 # endif /* NO VARRP */
+
+static array_t nullarr = &nullvar;
+static array_t *nullarrptr = &nullvarptr;
 
 /* By calculating relative element size, then times idx to get the
    absolute position in array _SRC

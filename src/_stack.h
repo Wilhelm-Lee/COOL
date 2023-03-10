@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@ extern "C" {
 # include "_array.h"
 
 /* Extern from _exception.h */
-extern inline void
+extern __inline__ void
 THROW(excep_e e, const char *__restrict__ _file, long int _line,
       const char *__restrict__ _func, const char *__restrict__ _FMT, ...);
 

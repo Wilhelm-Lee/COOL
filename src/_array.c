@@ -1,5 +1,5 @@
 /*
- *     This file is part of project  https://github.com/WilliamPascal/COOL
+ *     This file is part of project  <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@ __array_pgoto(var_t *ptr, array_t *_src, index_t idx)
 {
   if (ptr == NULL)
     THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
-          "Variable %H has nullability/inaccessibility", ptr);
+          "Variable %H is improperly nulled", ptr);
 
   length_t _src_len = _array_calclen(_src);
   if (idx > _src_len)
@@ -104,7 +104,7 @@ _array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr)
   const length_t _vlen = _array_calcvlen(varr);
   if (_vlen == -1)
     THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
-          "Cannot instant an array with 	varr(%H:%llu) given nulled",
+          "Cannot instant an array with varr(%H:%llu) given nulled",
           varr->_addr, 	varr->_sz);
   else /* Start allocatoins */
     {

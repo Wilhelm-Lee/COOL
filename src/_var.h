@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,7 @@ extern "C" {
 # include "_exception.h"
 
 /* Extern from _exception.h */
-extern inline void
+extern __inline__ void
 THROW(excep_e e, const char *__restrict__ _file, long int _line,
       const char *__restrict__ _func, const char *__restrict__ _FMT, ...);
 
@@ -92,6 +92,9 @@ typedef struct _var_t
   size_t _sz;  /* Used for regenerations of actual value */
   varp _val;   /* Used for temporary value of actual value */
 } var_t;
+
+static var_t nullvar = {NULL, 0, NULL};
+static var_t *nullvarptr = &nullvar;
 
 void
 _var_new(var_t *v, size_t _sz, char *_val);

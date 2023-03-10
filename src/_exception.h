@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -47,7 +47,7 @@ typedef enum _excep_e
 
 /* These exceptions would become a super class which is so-called
    "Abstract Class". */
-static inline const char *
+static __inline__ const char *
 __excep_etos(excep_e _e)
 {
   switch(_e)
@@ -103,7 +103,7 @@ __excep_etos(excep_e _e)
                                       ~~~^^~~~  ~~~^^~~~  ~~~~^^^^~~~~
            "Errored when instanting %s.\nGiven options is illegal:\n\
            %d, %lf", opt1, opt2); */
-static inline void
+static __inline__ void
 THROW(excep_e e, const char *__restrict__ _file, long int _line,
       const char *__restrict__ _func, const char *__restrict__ _FMT, ...)
 {

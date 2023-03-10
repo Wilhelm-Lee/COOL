@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,9 @@ Consider to merge them into one.
 
 /*** Welcome to COOL MinGW, developers! ***/
 
-#include "_array.h"
+//# include "_var.h"
+// #include "_array.h"
+#include "objects.h"
 
 /* TEST */
 #include <stdlib.h>
@@ -88,6 +90,10 @@ main(int argc, char *argv[])
   
 //  fprintf(stdout, "%p\n", v1->_addr);
 //  fprintf(stdout, "%p\n", v2->_addr);
+
+  object *obj = NULL;
+  objects *objs = NULL;
+  objects *objs1 = { _OBJS_MOV_INDIC_MIN, objs, objs, objs, obj };
   
   return 0;
 }

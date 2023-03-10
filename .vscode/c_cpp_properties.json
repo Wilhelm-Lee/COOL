@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "name": "linux-clang-x64",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "compilerPath": "/usr/bin/x86_64-w64-mingw32-cc",
+      "cStandard": "c99",
+      "cppStandard": "c14",
+      "intelliSenseMode": "linux-clang-x64",
+      "compilerArgs": [
+        "-std=c99 -lm"
+      ]
+    }
+  ],
+  "version": 4
+}

@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -16,13 +16,20 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef oBJECT.h
-# define oBJECT.h
+#ifndef oBJECT_H
+# define oBJECT_H
 
-# include "_stack.h"
-# include "_queue.h"
+# include "_array.h"
 
 /* object created here would eventually appears to chained up to a full iterable
    array driven by _array.h named Object. */
+typedef struct object
+{
+  array_t *_fields;
+  array_t *_methods;
+} object;
+
+static object nullobj = {nullarrptr, nullarrptr};
+static object *nullobjptr = &nullobj;
 
 #endif /* NO oBJECT.h */

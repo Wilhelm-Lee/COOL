@@ -1,5 +1,5 @@
 /*
- *     This file is part of project https://github.com/WilliamPascal/COOL
+ *     This file is part of project <https://github.com/WilliamPascal/COOL>
  *     Copyright (C) 2023  William Pascal
  *
  *     This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#ifndef _RTN_H
-# error Please include head file _rtn.h ahead.
-#endif /* NO _RTN_H */
+#include "_rtn.h"
 
 #ifndef RTN_H
 # define RTN_H

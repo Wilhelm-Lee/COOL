@@ -113,7 +113,10 @@ _var_ren(var_t *v, size_t _sz, char *_val);
 int
 __var_szcmp(var_t *a, var_t *b);
 
-/* Return 1 for a>b; 0 for a==b; -1 for a<b; 2 for incompatible */
+/* Return 1 for a>b;
+          0 for a==b;
+          -1 for a<b;
+          2 for incompatible */
 int
 _var_cmp(var_t *a, var_t *b);
 

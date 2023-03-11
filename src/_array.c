@@ -19,6 +19,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#include <string.h>
 #include "_array.h"
 
 /* By calculating relative element size, then times idx to get the
@@ -44,15 +45,11 @@ Given idx was %lu which is out of bound for %lu",
   ptr = _array_getelem(_src, idx);
 }
 
-/* Returns length of given array of array_t;
-   -1 if not available. */
+/* Returns length of given array of array_t; */
 length_t
 _array_calclen(const array_t *arr)
 {
-  /* TEST: NOT FINISHED */
-  return 0;
-  /* TEST OVER */
-
+  return (strlen((const char *)arr));
 }
 
 /* Returns length of given array of vat_t*;
@@ -106,7 +103,7 @@ _array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr)
     THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Cannot instant an array with varr(%H:%llu) given nulled",
           varr->_addr, 	varr->_sz);
-  else /* Start allocatoins */
+  else /* Start allocations */
     {
       /* Inorder to properly handle strings, '\0' would requires one more byte while
          allocating.
@@ -149,7 +146,28 @@ _array_cutoff(index_t off, length_t len, array_t *tar);
 
 /* Returns true if identical */
 bool
-_array_cmparr(array_t *dst, const array_t *src);
+_array_equals(array_t *dst, array_t *src)
+{
+  /* property storage */
+  const length_t _dst_len = _array_calclen(dst);
+  const length_t _src_len = _array_calclen(src);
+
+  /* length comparison */
+  if (_dst_len != _src_len)
+    return false;
+  else
+    for (register index_t i = 0; i < _dst_len; i++)
+      {
+        auto var_t *_dst_elem = _array_getelem(dst, i);
+        auto var_t *_src_elem = _array_getelem(src, i);
+//        if (_dst_elem->_val != _src_elem->_val
+//            || _dst_elem->_sz != _src_elem->_sz)
+        if (_var_cmp(_dst_elem, _src_elem))
+          return false;
+      }
+
+   return true;
+}
 
 #ifdef __cplusplus
 }

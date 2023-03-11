@@ -32,4 +32,7 @@ typedef struct object
 static object nullobj = {nullarrptr, nullarrptr};
 static object *nullobjptr = &nullobj;
 
+bool
+_object_equals(object *a, object *b);
+
 #endif /* NO oBJECT.h */

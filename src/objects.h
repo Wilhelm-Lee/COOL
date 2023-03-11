@@ -28,13 +28,13 @@ typedef enum _objects_move_direction_e
   FORWARD = 1
 } _objects_move_direction_e;
 
-typedef uint16_t _objects_move_indicator_t;
+typedef int16_t _objects_move_indicator_t;
 # ifndef _OBJS_MOV_INDIC_MAX
-#  define _OBJS_MOV_INDIC_MAX 0b10000000000000000L /* 65536 */
+#  define _OBJS_MOV_INDIC_MAX INT16_MAX /* 32767 */
 # endif /* NO _OBJS_MOV_INDIC_MAX */
 
 # ifndef _OBJS_MOV_INDIC_MIN
-#  define _OBJS_MOV_INDIC_MIN 0b0L /* 0 */
+#  define _OBJS_MOV_INDIC_MIN INT16_MIN /* -32767-1 */
 # endif /* NO _OBJS_MOV_INDIC_MIN */
 
 # ifndef _OBJ_MOV_INDIC_DEF
@@ -63,46 +63,14 @@ static objects nullobjs = {_OBJS_MOV_INDIC_MIN,
                            nullobjptr};
 static objects *nullobjsptr = &nullobjs;
 
-static __inline__ void
-_objects_inherit(objects *dst, objects *src, _objects_move_indicator_t _indic)
-{
-  dst->_indic = _indic;
-  dst->_obj = src->_obj;
-  dst->_prev = src->_prev;
-  dst->_this = src->_this;
-  dst->_next = src->_next;
-  dst->_super = src;
-  dst->_successor = nullobjsptr;
-}
+void
+_objects_inherit(objects *dst, objects *src, _objects_move_indicator_t _indic);
 
-static __inline__ objects*
+bool
+_objects_equals(objects *a, objects *b);
+
+objects*
 _objects_move(objects *tar, _objects_move_direction_e direction,
-              objects *fillup)
-{
-  objects *felloff = NULL;
-  switch (direction)
-    {
-      case STAY:
-        return tar;
-
-      case FORWARD:
-        felloff = tar->_next;
-        tar->_next = tar->_this;
-        tar->_this = tar->_prev;
-        tar->_prev = fillup;
-        return felloff;
-
-      case BACKWARD:
-        felloff = tar->_prev;
-        tar->_prev = tar->_this;
-        tar->_this = tar->_next;
-        tar->_next = fillup;
-        return felloff;
-      
-      default:
-        THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
-              _EXCEP_FMT);
-    }
-}
+              objects *fillup);
 
 #endif /* NO oBJECTS_H */

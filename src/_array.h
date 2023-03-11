@@ -53,13 +53,12 @@ __array_pgoto(var_t *ptr, array_t *_src, index_t idx);
 length_t
 __array_arrlen();
 
-/* Returns length of given array of array_t;
-   -1 if not available. */
+/* Returns length of given array of array_t; */
 length_t
 _array_calclen(const array_t *arr);
 
-/* Returns length of given array of vat_t*;
-   -1 if not available. k*/
+/* Returns length of given array of var_t*;
+   -1 if not available. */
 length_t
 _array_calcvlen(const var_t *varr);
 
@@ -103,7 +102,7 @@ _array_cutoff(numberic_t off, length_t len, array_t *tar);
 
 /* Returns true if identical */
 bool
-_array_cmparr(array_t *dst, const array_t *src);
+_array_eqauls(array_t *dst, array_t *src);
 
 #endif /* NO _ARRAY_H */
 

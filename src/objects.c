@@ -14,7 +14,10 @@ _objects_inherit(objects *dst, objects *src, _objects_move_indicator_t _indic)
 
 bool
 _objects_equals(objects *a, objects *b)
-{}
+{
+  return (_object_equals(a->_obj, b->_obj)
+          && (a->_indic == b->_indic));
+}
 
 objects*
 _objects_move(objects *tar, _objects_move_direction_e direction,

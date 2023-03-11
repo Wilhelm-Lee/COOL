@@ -29,8 +29,11 @@ typedef struct object
   array_t *_methods;
 } object;
 
-static object nullobj = {nullarrptr, nullarrptr};
-static object *nullobjptr = &nullobj;
+//static object nullobj = (object){nullarrptr, nullarrptr};
+//static object *nullobjptr = &nullobj; /* YOU LEFT HERE */
+
+# define nullobj     ((object){nullarrptr, nullarrptr})
+# define nullobjptr  ((object)&nullobj)
 
 bool
 _object_equals(object *a, object *b);

@@ -41,8 +41,10 @@ typedef array_t* varrp;
 #  define VARRP
 # endif /* NO VARRP */
 
-static array_t nullarr = &nullvar;
-static array_t *nullarrptr = &nullvarptr;
+//static array_t nullarr = (array_t)&nullvar;
+//static array_t *nullarrptr = (array_t*)&nullvarptr;
+# define nullarr     (&nullvar)
+# define nullarrptr  (array_t *)&nullvar
 
 /* By calculating relative element size, then times idx to get the
    absolute position in array _SRC

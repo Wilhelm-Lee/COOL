@@ -42,7 +42,18 @@ typedef int16_t _objects_move_indicator_t;
 # endif /* NO _OBJ_MOV_INDIC_DEF */
 
 typedef struct objects {
-
+/*
+               Super
+               O
+               |
+               |
+O--------------O--------------O
+prev           this           next
+               |
+               |
+               O
+               Successor
+*/
   _objects_move_indicator_t _indic;
 
   /* Horizontal logic */
@@ -53,15 +64,27 @@ typedef struct objects {
   /* Vertical logic */
   struct objects *_super;
   struct objects *_successor;
-  
+
   object *_obj;
 } objects;
 
-static objects nullobjs = {_OBJS_MOV_INDIC_MIN,
-                           &nullobjs, &nullobjs, &nullobjs,
-                           &nullobjs, &nullobjs,
-                           nullobjptr};
-static objects *nullobjsptr = &nullobjs;
+// static objects nullobjs =
+// (objects) {
+//     _OBJS_MOV_INDIC_MIN,
+//     &nullobjs, &nullobjs, &nullobjs,
+//     &nullobjs, &nullobjs,
+//     nullobjptr
+// };
+// static objects *nullobjsptr = (objects *)&nullobjs;
+
+# define nullobjs \
+    ((objects) {\
+      _OBJS_MOV_INDIC_MIN,\
+      &nullobjs, &nullobjs, &nullobjs,\
+      &nullobjs, &nullobjs,\
+      nullobjptr\
+    })
+# define nullobjsptr ((objects *)&nullobjs)
 
 void
 _objects_inherit(objects *dst, objects *src, _objects_move_indicator_t _indic);

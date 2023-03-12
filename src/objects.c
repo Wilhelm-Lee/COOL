@@ -1,7 +1,7 @@
 #include "objects.h"
 
 void
-_objects_inherit(objects *dst, objects *src, _objects_move_indicator_t _indic)
+_objects_succeed(objects *dst, objects *src, _objects_move_indicator_t _indic)
 {
   dst->_indic = _indic;
   dst->_obj = src->_obj;
@@ -44,7 +44,7 @@ _objects_move(objects *tar, _objects_move_direction_e direction,
         tar->_next = fillup;
         tar->_indic -= 1;
         return felloff;
-      
+
       default:
         THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
               _EXCEP_FMT);

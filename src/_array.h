@@ -41,10 +41,8 @@ typedef array_t* varrp;
 #  define VARRP
 # endif /* NO VARRP */
 
-//static array_t nullarr = (array_t)&nullvar;
-//static array_t *nullarrptr = (array_t*)&nullvarptr;
-# define nullarr     (&nullvar)
-# define nullarrptr  (array_t *)&nullvar
+static array_t nullarr = (array_t)(nullvarptr);
+# define nullarrptr      (array_t *)&nullvar
 
 /* By calculating relative element size, then times idx to get the
    absolute position in array _SRC
@@ -84,7 +82,7 @@ _array_delarr(array_t *tar);
 
 /* TipsForDevls: Reallocate _DST's size when the size of _SRC & _DST
    does not match */
-_rtn_t
+rtn_t
 _array_mirror(array_t *dst, const array_t *src);
 
 /* Returns subarray extracted from _src
@@ -95,11 +93,11 @@ _array_subarr(index_t off, length_t len, array_t *tar);
 
 /* Throws OutOfBoundException,
           IllegalArgumentException */
-_rtn_t
+rtn_t
 _array_insert(index_t off, const array_t *src);
 
 /* Throws OutOfBoundException */
-_rtn_t
+rtn_t
 _array_cutoff(numberic_t off, length_t len, array_t *tar);
 
 /* Returns true if identical */

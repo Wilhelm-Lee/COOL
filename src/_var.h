@@ -93,11 +93,8 @@ typedef struct _var_t
   varp _val;   /* Used for temporary value of actual value */
 } var_t;
 
-//static var_t nullvar = (var_t){NULL, 0, NULL};
-//static var_t *nullvarptr = &nullvar;
-
-# define nullvar     ((var_t){NULL, 0, NULL})
-# define nullvarptr  (&nullvar)
+static var_t nullvar = ((var_t){NULL, 0, NULL});
+# define nullvarptr    ((var_t *)(&nullvar))
 
 void
 _var_new(var_t *v, size_t _sz, char *_val);

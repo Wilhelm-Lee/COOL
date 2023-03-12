@@ -68,26 +68,17 @@ prev           this           next
   object *_obj;
 } objects;
 
-// static objects nullobjs =
-// (objects) {
-//     _OBJS_MOV_INDIC_MIN,
-//     &nullobjs, &nullobjs, &nullobjs,
-//     &nullobjs, &nullobjs,
-//     nullobjptr
-// };
-// static objects *nullobjsptr = (objects *)&nullobjs;
-
-# define nullobjs \
-    ((objects) {\
-      _OBJS_MOV_INDIC_MIN,\
-      &nullobjs, &nullobjs, &nullobjs,\
-      &nullobjs, &nullobjs,\
-      nullobjptr\
-    })
+static objects nullobjs =
+(objects) {
+  _OBJS_MOV_INDIC_MIN,
+  &nullobjs, &nullobjs, &nullobjs,
+  &nullobjs, &nullobjs,
+  nullobjptr
+};
 # define nullobjsptr ((objects *)&nullobjs)
 
 void
-_objects_inherit(objects *dst, objects *src, _objects_move_indicator_t _indic);
+_objects_succeed(objects *dst, objects *src, _objects_move_indicator_t _indic);
 
 bool
 _objects_equals(objects *a, objects *b);

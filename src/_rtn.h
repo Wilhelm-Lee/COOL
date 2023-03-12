@@ -25,7 +25,7 @@ extern "C" {
 
 # ifndef _RTN_T
 #  define _RTN_T
-typedef int _rtn_t;
+typedef int rtn_t;
 # endif /* NO _RTN_T */
 
 # define RETURN_NULLERR -2

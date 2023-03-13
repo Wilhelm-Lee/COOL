@@ -17,7 +17,7 @@
  */
 
 /* Macro __STUDY_COOL_MinGW__ is an identifier for further development
-   which involves in when vraiance of other projects come together. */
+   which involves in when variance of other projects come together. */
 #ifdef __STUDY_COOL_MinGW__
 # error Macro "__STUDY_COOL_MinGW__" should only be defined in main.c
 #endif /* __STUDY_COOL_MinGW__ */
@@ -47,24 +47,24 @@ main(int argc, char *argv[]);  /* For ANSI C */
 
 int
 main(int argc, char *argv[])
-{       
+{
 //  var_t _v;
 //  _var_new(&_v, sizeof(int));
-  
+
 //  fprintf(stdout, "%p %llu\n", _v._addr, _v._sz);
-  
+
 //  _var_ren(&_v, sizeof(double));
-  
+
 //  fprintf(stdout, "%p %llu\n", _v._addr, _v._sz);
-  
-//  _var_del(&_v); /* Mulfunctioning :( */
-  
+
+//  _var_del(&_v); /* Malfunctioning :( */
+
 //  /* Memory was not freed, no Segmentation Fault */
 //  fprintf(stdout, "%p %llu\n", _v._addr, _v._sz);
 
 //  var_t p;
 //  _var_new(&p, sizeof(int));
-  
+
 //  array_t arr;
 //  arr.len = 6;
 //  __array_pgoto(&p, &arr, 9);
@@ -74,26 +74,33 @@ main(int argc, char *argv[])
 
 ////  var_t *v1;
 ////  _var_new(v1, sizeof(i1), itos(1)); /* 4 */
-  
+
 //  v1 = i1;
-  
+
 ////  fprintf(stdout, "%p\n", v1->_addr);
-  
+
 ////  var_t *v2 = _var_new(sizeof(i2)); /* 8 */
-  
+
 //  v2 = 0xFFFF;
-  
+
 ////  fprintf(stdout, "%p\n", v2->_addr);
-  
+
 ////  _var_del(v1);
 ////  _var_del(v2);
-  
+
 //  fprintf(stdout, "%p\n", v1->_addr);
 //  fprintf(stdout, "%p\n", v2->_addr);
 
-  object *obj = NULL;
-  objects *objs = NULL;
-  objects *objs1 = { _OBJS_MOV_INDIC_MIN, objs, objs, objs, obj };
-  
+  object_t *obj = nullobjptr;
+  objects_t *objs = nullobjsptr;
+  objects_t objs1 = (objects_t){ _OBJS_MOV_INDIC_DEF, objs, objs, objs, objs, objs, obj };
+
+  //_objects_succeed(&objs1, objs, objs->_indic); // Undefined reference ???
+
+  fprintf(stdout, "obj: %p\n", obj);
+  fprintf(stdout, "objs: %p\n", objs);
+
+  fprintf(stdout, "objs1.successor: %p\n", objs1._successor);
+
   return 0;
 }

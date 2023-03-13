@@ -41,8 +41,8 @@ typedef array_t* varrp;
 #  define VARRP
 # endif /* NO VARRP */
 
-static array_t nullarr = (array_t)(nullvarptr);
-# define nullarrptr      (array_t *)&nullvar
+static const array_t nullarr = (array_t)(nullvarptr);
+# define nullarrptr      (array_t *)&nullarr
 
 /* By calculating relative element size, then times idx to get the
    absolute position in array _SRC
@@ -98,11 +98,11 @@ _array_insert(index_t off, const array_t *src);
 
 /* Throws OutOfBoundException */
 rtn_t
-_array_cutoff(numberic_t off, length_t len, array_t *tar);
+_array_cutoff(numeric_t off, length_t len, array_t *tar);
 
 /* Returns true if identical */
 bool
-_array_eqauls(array_t *dst, array_t *src);
+_array_equals(array_t *dst, array_t *src);
 
 #endif /* NO _ARRAY_H */
 

@@ -37,11 +37,11 @@ typedef int16_t _objects_move_indicator_t;
 #  define _OBJS_MOV_INDIC_MIN INT16_MIN /* -32767-1 */
 # endif /* NO _OBJS_MOV_INDIC_MIN */
 
-# ifndef _OBJ_MOV_INDIC_DEF
-#  define _OBJ_MOV_INDIC_DEF (_OBJS_MOV_INDIC_MAX / 2)
-# endif /* NO _OBJ_MOV_INDIC_DEF */
+# ifndef _OBJS_MOV_INDIC_DEF
+#  define _OBJS_MOV_INDIC_DEF (0)
+# endif /* NO _OBJS_MOV_INDIC_DEF */
 
-typedef struct objects {
+typedef struct objects_t {
 /*
                Super
                O
@@ -57,34 +57,35 @@ prev           this           next
   _objects_move_indicator_t _indic;
 
   /* Horizontal logic */
-  struct objects *_prev;
-  struct objects *_this;
-  struct objects *_next;
+  struct objects_t *_prev;
+  struct objects_t *_this;
+  struct objects_t *_next;
 
   /* Vertical logic */
-  struct objects *_super;
-  struct objects *_successor;
+  struct objects_t *_super;
+  struct objects_t *_successor;
 
-  object *_obj;
-} objects;
+  object_t *_obj;
+} objects_t;
 
-static objects nullobjs =
-(objects) {
-  _OBJS_MOV_INDIC_MIN,
-  &nullobjs, &nullobjs, &nullobjs,
-  &nullobjs, &nullobjs,
+static const objects_t nullobjs =
+(objects_t) {
+  0,
+  (objects_t *)&nullobjs, (objects_t *)&nullobjs, (objects_t *)&nullobjs,
+  (objects_t *)&nullobjs, (objects_t *)&nullobjs,
   nullobjptr
 };
-# define nullobjsptr ((objects *)&nullobjs)
+# define nullobjsptr ((objects_t *)&nullobjs)
 
 void
-_objects_succeed(objects *dst, objects *src, _objects_move_indicator_t _indic);
+_objects_succeed(objects_t *dst, objects_t *src,
+                 _objects_move_indicator_t _indic);
 
 bool
-_objects_equals(objects *a, objects *b);
+_objects_equals(objects_t *a, objects_t *b);
 
-objects*
-_objects_move(objects *tar, _objects_move_direction_e direction,
-              objects *fillup);
+objects_t*
+_objects_move(objects_t *tar, _objects_move_direction_e direction,
+              objects_t *fillup);
 
 #endif /* NO oBJECTS_H */

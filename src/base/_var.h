@@ -65,19 +65,19 @@ typedef vars* varp;
  -----------------------------------------------
  **/
 #  if defined __x86_64__ || defined __x86_64 || defined _WIN64
-typedef uint64_t numberic_t;
+typedef uint64_t numeric_t;
 #  elif defined _WIN32 || defined __x86_32
-typedef uint32_t numberic_t;
+typedef uint32_t numeric_t;
 #  elif defined _WIN16
-typedef uint16_t numberic_t;
+typedef uint16_t numeric_t;
 #  else
 #   error Platform is not supported!
 #  endif /* _WIN64 */
-#  define NUMBERIC_T
-# endif /* NO NUMBERIC_T */
+#  define NUMERIC_T
+# endif /* NO NUMERIC_T */
 
 # ifndef INDEX_T
-typedef numberic_t index_t;
+typedef numeric_t index_t;
 #  define INDEX_T
 # endif /* NO INDEX_T */
 
@@ -93,7 +93,7 @@ typedef struct _var_t
   varp _val;   /* Used for temporary value of actual value */
 } var_t;
 
-static var_t nullvar = ((var_t){NULL, 0, NULL});
+static const var_t nullvar = ((var_t){NULL, 0, NULL});
 # define nullvarptr    ((var_t *)(&nullvar))
 
 void

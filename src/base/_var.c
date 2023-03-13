@@ -72,7 +72,7 @@ _var_cmp(var_t *a, var_t *b)
   /* Not identical sizes */
   if (__var_szcmp(a, b))
     return 2;
-    
+
   return (memcmp(a->_addr, b->_addr, a->_sz));
 }
 

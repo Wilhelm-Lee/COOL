@@ -19,20 +19,20 @@
 #ifndef oBJECT_H
 # define oBJECT_H
 
-# include "_array.h"
+# include "base/_array.h"
 
-/* object created here would eventually appears to chained up to a full iterable
-   array driven by _array.h named Object. */
-typedef struct object
+/* object_t created here would eventually appears to chained up to a full iterable
+   array driven by _array.h named object_t. */
+typedef struct object_t
 {
   array_t *_fields;
   array_t *_methods;
-} object;
+} object_t;
 
-static object nullobj = ((object){nullarrptr, nullarrptr});
-# define nullobjptr  ((object *)&nullobj)
+static const object_t nullobj = ((object_t){nullarrptr, nullarrptr});
+# define nullobjptr  ((object_t *)&nullobj)
 
 bool
-_object_equals(object *a, object *b);
+_object_equals(object_t *a, object_t *b);
 
-#endif /* NO oBJECT.h */
+#endif /* NO object_t.h */

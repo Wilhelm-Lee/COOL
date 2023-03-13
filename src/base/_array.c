@@ -105,7 +105,7 @@ _array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr)
           varr->_addr, 	varr->_sz);
   else /* Start allocations */
     {
-      /* Inorder to properly handle strings, '\0' would requires one more byte while
+      /* In order to properly handle strings, '\0' would requires one more byte while
          allocating.
       Plus one for null character ('\0') */
       tar = (varrp)malloc(_sz * len + 1);
@@ -126,7 +126,7 @@ _array_delarr(array_t *tar);
 
 /* TipsForDevls: Reallocate _DST's size when the size of _SRC & _DST
    does not match */
-_rtn_t
+rtn_t
 _array_mirror(array_t *dst, const array_t *src);
 
 /* Returns subarray extracted from _src
@@ -137,11 +137,11 @@ _array_subarr(index_t off, length_t len, array_t *tar);
 
 /* Throws OutOfBoundException,
           IllegalArgumentException */
-_rtn_t
+rtn_t
 _array_insert(index_t off, const array_t *src);
 
 /* Throws OutOfBoundException */
-_rtn_t
+rtn_t
 _array_cutoff(index_t off, length_t len, array_t *tar);
 
 /* Returns true if identical */

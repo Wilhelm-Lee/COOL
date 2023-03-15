@@ -96,13 +96,13 @@ _array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr)
 
   if (varr->_sz != _sz)
     THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
-          "Sizes do not match, cannot start initalisation");
+          "Sizes do not match, cannot start initialisation");
 
   const length_t _vlen = _array_calcvlen(varr);
   if (_vlen == -1)
     THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Cannot instant an array with varr(%H:%llu) given nulled",
-          varr->_addr, 	varr->_sz);
+          varr->_addr, varr->_sz);
   else /* Start allocations */
     {
       /* In order to properly handle strings, '\0' would requires one more byte while
@@ -130,7 +130,7 @@ rtn_t
 _array_mirror(array_t *dst, const array_t *src);
 
 /* Returns subarray extracted from _src
-   start from index (	off - 1) till index (	off + len - 1)
+   start from index (off - 1) till index (off + len - 1)
    Throws OutOfBoundException */
 array_t *
 _array_subarr(index_t off, length_t len, array_t *tar);

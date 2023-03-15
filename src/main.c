@@ -23,17 +23,12 @@
 #endif /* __STUDY_COOL_MinGW__ */
 
 #ifdef __STUDY_COOL_GNU__
-# warning Macro __STUDY_COOL_GNU__ is defined. \
-Consider to merge them into one.
+# warning Macro __STUDY_COOL_GNU__ is defined. Consider to merge them into one.
 #endif /* __STUDY_COOL_GNU__ */
 
 #define __STUDY_COOL_MinGW__ 1
 
 /*** Welcome to COOL MinGW, developers! ***/
-
-//# include "_var.h"
-// #include "_array.h"
-#include "objects.h"
 
 /* TEST */
 #include <stdlib.h>
@@ -41,6 +36,10 @@ Consider to merge them into one.
 #include <stdint.h>
 #include <strings.h>
 /* TEST OVER */
+
+//# include "_var.h"
+// #include "_array.h"
+#include "advanced/objects.h"
 
 int
 main(int argc, char *argv[]);  /* For ANSI C */
@@ -93,14 +92,16 @@ main(int argc, char *argv[])
 
   object_t *obj = nullobjptr;
   objects_t *objs = nullobjsptr;
-  objects_t objs1 = (objects_t){ _OBJS_MOV_INDIC_DEF, objs, objs, objs, objs, objs, obj };
+  objects_t objs1 = (objects_t){ _OBJS_MOV_INDIC_DEF, objs, objs, objs, objs, obj };
 
-  //_objects_succeed(&objs1, objs, objs->_indic); // Undefined reference ???
+  _objects_succeed(&objs1, objs, objs->_indic);
 
   fprintf(stdout, "obj: %p\n", obj);
   fprintf(stdout, "objs: %p\n", objs);
 
   fprintf(stdout, "objs1.successor: %p\n", objs1._successor);
+
+  fprintf(stdout, "%d\n", _objects_relation(objs, &objs1));
 
   return 0;
 }

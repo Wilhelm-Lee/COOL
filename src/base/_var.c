@@ -26,12 +26,12 @@ void
 _var_new(var_t *v, size_t _sz, char *_val)
 {
   v->_addr = malloc(_sz);
-  
+
   /* Null pointer check */
   if (v->_addr == NULL)
     THROW(InstanceFailureException, __FILE__, __LINE__, __FUNCTION__,
           "Cannot properly malloc");
-  
+
   v->_val = _val;
 }
 
@@ -41,7 +41,7 @@ _var_del(var_t *v)
   free(v->_val);
   free(v->_addr);
   free(v);
-  
+
   /* Since a pointer would not be removed after it has been freed, therefor
   the best way to make it still legal to access is to let it point towards NULL
   */
@@ -84,7 +84,7 @@ _var_swp(var_t *a, var_t *b)
 {
   var_t *c;
   _var_new(c, a->_sz, a->_val);
-  
+
   _var_ren(a, b->_sz, b->_val);
   _var_ren(b, c->_sz, c->_val);
 

@@ -28,6 +28,18 @@ typedef enum _objects_move_direction_e
   FORWARD = 1
 } _objects_move_direction_e;
 
+typedef enum _objects_relation_e
+{
+  NONE = 0,
+  NEXT = 1,
+  PREV = -1,
+  SUPER = 2,
+  SUCCESSOR = -2,
+  EQUAL = 3,
+  SELF = 4,
+  UNKNOWN = 5
+} _objects_relation_e;
+
 typedef int16_t _objects_move_indicator_t;
 # ifndef _OBJS_MOV_INDIC_MAX
 #  define _OBJS_MOV_INDIC_MAX INT16_MAX /* 32767 */
@@ -39,7 +51,7 @@ typedef int16_t _objects_move_indicator_t;
 
 # ifndef _OBJS_MOV_INDIC_DEF
 #  define _OBJS_MOV_INDIC_DEF (0)
-# endif /* NO _OBJS_MOV_INDIC_DEF */
+# endif /* NO _OBJS_MOV_INDIC_DEF */ //aa
 
 typedef struct objects_t {
 /*
@@ -48,7 +60,7 @@ typedef struct objects_t {
                |
                |
 O--------------O--------------O
-prev           this           next
+prev                          next
                |
                |
                O
@@ -58,7 +70,6 @@ prev           this           next
 
   /* Horizontal logic */
   struct objects_t *_prev;
-  struct objects_t *_this;
   struct objects_t *_next;
 
   /* Vertical logic */
@@ -71,7 +82,7 @@ prev           this           next
 static const objects_t nullobjs =
 (objects_t) {
   0,
-  (objects_t *)&nullobjs, (objects_t *)&nullobjs, (objects_t *)&nullobjs,
+  (objects_t *)&nullobjs, (objects_t *)&nullobjs,
   (objects_t *)&nullobjs, (objects_t *)&nullobjs,
   nullobjptr
 };
@@ -83,6 +94,20 @@ _objects_succeed(objects_t *dst, objects_t *src,
 
 bool
 _objects_equals(objects_t *a, objects_t *b);
+
+bool
+_objects_is(objects_t *a, objects_t *b);
+
+/* Returns 0 when A and B are not related at all;
+           1 when A is the NEXT to B;
+          -1 when A is the PREV to B;
+           2 when A is the SUPER to B;
+          -2 when A is the SUCCESSOR to B;
+           3 when A equals as B;
+           4 when A is B;
+           5 when unknown */
+_objects_relation_e
+_objects_relation(objects_t *a, objects_t *b);
 
 objects_t*
 _objects_move(objects_t *tar, _objects_move_direction_e direction,

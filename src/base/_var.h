@@ -46,7 +46,7 @@ typedef vars* varp;
 #  define VARP
 # endif /* NO VARP */
 
-# ifndef NUMBERIC_T
+# ifndef NUMERIC_T
 /**
  _______________________________________________
  |     TYPE      | 16 bits | 32 bits | 64 bits |

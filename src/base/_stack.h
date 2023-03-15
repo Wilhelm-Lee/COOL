@@ -31,7 +31,7 @@ THROW(excep_e e, const char *__restrict__ _file, long int _line,
       const char *__restrict__ _func, const char *__restrict__ _FMT, ...);
 
 # ifndef STACK_MAX
-#  define STACK_MAX 262144LL  /* 256KB == 262144B <=> 2^18 */
+#  define STACK_MAX 262144LL  /* 256KiB == 262144B <=> 2^18 */
 # endif /* NO STACK_MAX */
 
 typedef struct _stack_t

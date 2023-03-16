@@ -33,5 +33,9 @@
     "**/.vscode",
     "**/.vscode/**"
   ],
-  "editor.minimap.enabled": false
+  "editor.minimap.enabled": false,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "SonarLintConnect",
+    "projectKey": "WilliamPascal_COOL"
+  }
 }

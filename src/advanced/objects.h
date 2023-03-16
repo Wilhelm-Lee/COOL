@@ -19,7 +19,7 @@
 #ifndef oBJECTS_H
 # define oBJECTS_H
 
-#include "object.h"
+# include "object.h"
 
 typedef enum _objects_move_direction_e
 {

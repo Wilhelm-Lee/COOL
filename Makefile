@@ -6,7 +6,7 @@ PHD = .
 BUILD = $(PHD)/build
 OBJ = $(PHD)/obj
 SRC = $(PHD)/src
-SRC_BASE = $(SRC)/base
+SRC_BASE = $(SRC)/basic
 SRC_OO = $(SRC)/advanced
 ICO = $(PHD)/icon
 NAM = COOL_MinGW
@@ -20,7 +20,7 @@ clean: $(OBJ)/*
 	rm -v $(OBJ)/*
 
 # Simply compile files into obj files, without binary complations.
-compile_base: $(SRC)/base
+compile_base: $(SRC)/basic
 	$(CC) -c $(FLAG) -o $(OBJ)/
 
 # Simply compile files into obj files, without binary complations.

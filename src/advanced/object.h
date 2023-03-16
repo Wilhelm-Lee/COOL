@@ -19,7 +19,7 @@
 #ifndef oBJECT_H
 # define oBJECT_H
 
-# include "../base/_array.h"
+# include "../basic/_array.h"
 
 /* object_t created here would eventually appears to chained up to a full iterable
    array driven by _array.h named object_t. */

@@ -42,16 +42,13 @@ typedef array_t* varrp;
 # endif /* NO VARRP */
 
 static const array_t nullarr = (array_t)(nullvarptr);
-# define nullarrptr      (array_t *)&nullarr
+# define nullarrptr (array_t *)&nullarr
 
 /* By calculating relative element size, then times idx to get the
    absolute position in array _SRC
-   Throws IllegalArgumentException */
+   Throws InvalidArgumentException */
 void
 __array_pgoto(var_t *ptr, array_t *_src, index_t idx);
-
-length_t
-__array_arrlen();
 
 /* Returns length of given array of array_t; */
 length_t
@@ -62,37 +59,37 @@ _array_calclen(const array_t *arr);
 length_t
 _array_calcvlen(const var_t *varr);
 
-/* Throws IllegalArgumentException */
+/* Throws InvalidArgumentException */
 var_t*
 _array_getelem(array_t *tar, index_t idx);
 
-/* Throws IllegalArgumentException */
+/* Throws InvalidArgumentException */
 void
 _array_setelem(array_t *tar, index_t idx, var_t *var);
 
 /* As varr being initial source, tar will be validated within size _SZ, length
    for len.
    Throws InstanceFailureException
-          IllegalArgumentException */
+          InvalidArgumentException */
 void
 _array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr);
 
 void
 _array_delarr(array_t *tar);
 
-/* TipsForDevls: Reallocate _DST's size when the size of _SRC & _DST
+/* TipsForDevls: Reallocate DST's size when the size of SRC & DST
    does not match */
 rtn_t
 _array_mirror(array_t *dst, const array_t *src);
 
-/* Returns subarray extracted from _src
+/* Returns subarray extracted from src
    start from index (off - 1) till index (off + len - 1)
    Throws OutOfBoundException */
 array_t *
 _array_subarr(index_t off, length_t len, array_t *tar);
 
 /* Throws OutOfBoundException,
-          IllegalArgumentException */
+          InvalidArgumentException */
 rtn_t
 _array_insert(index_t off, const array_t *src);
 

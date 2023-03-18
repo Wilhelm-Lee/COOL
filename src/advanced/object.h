@@ -35,4 +35,7 @@ static const object_t nullobj = ((object_t){nullarrptr, nullarrptr});
 bool
 _object_equals(object_t *a, object_t *b);
 
+void
+_object_delobj(object_t *tar);
+
 #endif /* NO object_t.h */

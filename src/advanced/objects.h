@@ -109,8 +109,20 @@ _objects_is(objects_t *a, objects_t *b);
 _objects_relation_e
 _objects_relation(objects_t *a, objects_t *b);
 
+/* Throws InvalidArgumentException */
 objects_t*
 _objects_move(objects_t *tar, _objects_move_direction_e direction,
               objects_t *fillup);
+
+/* Throws InvalidArgumentException;
+          InvalidNullPointerException */
+void
+_objects_newobjs(objects_t *tar, _objects_move_indicator_t _indic,
+                 objects_t *_prev, objects_t *_next,
+                 objects_t *_super, objects_t *_successor,
+                 object_t *_obj);
+
+void
+_objects_delobjs(objects_t *tar);
 
 #endif /* NO oBJECTS_H */

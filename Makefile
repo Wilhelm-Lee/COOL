@@ -3,34 +3,30 @@ FLAG = -lm -std=c99 -Wall
 
 # PHD: Project Home Directory
 PHD = .
+STRUCTURE := $(PHD)/basic $(PHD)/advanced
 BUILD = $(PHD)/build
 OBJ = $(PHD)/obj
 SRC = $(PHD)/src
-SRC_BASE = $(SRC)/basic
-SRC_OO = $(SRC)/advanced
 ICO = $(PHD)/icon
 NAM = COOL_MinGW
 DBG = $(BUILD)/Debug
 RLS = $(BUILD)/Release
 
-COMPI_C   = $(SRC_BASE)
-COMPI_OOL = $(PHD)
+OBJECTS = $(SRC)/main.o $(OBJ)/_var.o $(OBJ)/_array.o $(OBJ)/_memctl.o         \
+		  $(OBJ)/_queue.o $(OBJ)/_stack.o $(OBJ)/object.o $(OBJ)/objects.o
 
-clean: $(OBJ)/*
-	rm -v $(OBJ)/*
+$(NAM).exe : $(OBJECTS)
+	$(CC) -o $(DBG)/$(NAM).exe $(SRC)/$(OBJECTS)
 
-# Simply compile files into obj files, without binary complations.
-compile_base: $(SRC)/basic
-	$(CC) -c $(FLAG) -o $(OBJ)/
+main.o : $(SRC)/advanced/objects.h
+_var.o : $(SRC)/basic/_exception.h
+_array.o : $(SRC)/basic/_var.h $(SRC)/basic/_rtn.h
+_memctl.o : $(SRC)/basic/_rtn.h $(SRC)/basic/_array.h
+_queue.o : $(SRC)/basic/_array.h
+_stack.o : $(SRC)/basic/_array.h
+object.o : $(SRC)/basic/_array.h
+objects.o : $(SRC)/advanced/object.h
 
-# Simply compile files into obj files, without binary complations.
-complie_advanced: $(SRC)/advanced
-	$(CC) -c $(FLAG) -o $(OBJ)/
-
-# Build DeBuG
-bdbg: $(SRC)/main.c $(OBJ)/*
-	$(CC) -D__DEBUG__ $(FLAG) $(SRC)/main.c -o $(DBG)/$(NAM)
-
-# Build ReLeaSe
-brls: $(SRC)/main.c $(OBJ)/*
-	$(CC) -D__RELEASE__ $(FLAG) $(SRC)/main.c -o $(RLS)/$(NAM)
+.PHONEY : clean
+clean:
+	-rm -r $(SRC)/*.o

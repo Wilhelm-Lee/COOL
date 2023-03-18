@@ -27,8 +27,8 @@ extern "C" {
 
 /* Extern from _exception.h */
 extern __inline__ void
-THROW(excep_e e, const char *__restrict__ _file, long int _line,
-      const char *__restrict__ _func, const char *__restrict__ _FMT, ...);
+THROW(excep_e e, const char *__restrict__ __file__, long int __line__,
+      const char *__restrict__ __function__, const char *__restrict__ _FMT, ...);
 
 # ifndef STACK_MAX
 #  define STACK_MAX 262144LL  /* 256KiB == 262144B <=> 2^18 */

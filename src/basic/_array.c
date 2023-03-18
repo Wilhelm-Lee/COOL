@@ -22,15 +22,11 @@ extern "C" {
 #include <string.h>
 #include "_array.h"
 
-/* By calculating relative element size, then times idx to get the
-   absolute position in array _SRC
-   Throws IllegalArgumentException
-          OutOfBoundException */
 void
 __array_pgoto(var_t *ptr, array_t *_src, index_t idx)
 {
   if (ptr == NULL)
-    THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
+    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Variable %H is improperly nulled", ptr);
 
   length_t _src_len = _array_calclen(_src);
@@ -45,15 +41,12 @@ Given idx was %lu which is out of bound for %lu",
   ptr = _array_getelem(_src, idx);
 }
 
-/* Returns length of given array of array_t; */
 length_t
 _array_calclen(const array_t *arr)
 {
   return (strlen((const char *)arr));
 }
 
-/* Returns length of given array of vat_t*;
-   -1 if not available. */
 length_t
 _array_calcvlen(const var_t *varr)
 {
@@ -61,46 +54,38 @@ _array_calcvlen(const var_t *varr)
     return -1;
 
   /* Since varp is used above, and since size of varp is as same as
-  char (1 Byte), Thus, having strlen is the same for calculating the length for
+  char (1 Byte). Thus, having strlen is the same for calculating the length for
   varr */
   return strlen((const char *)varr);
 }
 
-/* Throws IllegalArgumentException */
 var_t*
 _array_getelem(array_t *tar, index_t idx)
 {
   if (tar == NULL)
-    THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
+    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Nulled array(%H) does not support extracting element from it", tar);
 
   return tar[idx];
 }
 
-/* Throws IllegalArgumentException */
 void
 _array_setelem(array_t *tar, index_t idx, var_t *_var);
 
-/* As arr being initial source, tar will be validated within size _SZ, length
-   for len.
-   To be able to fit function strlen from string.h, a null character will be
-   added in order to make sense for it.
-   Throws InstanceFailureException
-          IllegalArgumentException */
 void
 _array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr)
 {
   if (varr == NULL)
-    THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
+    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Initial arr should not be NULL");
 
   if (varr->_sz != _sz)
-    THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
+    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Sizes do not match, cannot start initialisation");
 
   const length_t _vlen = _array_calcvlen(varr);
   if (_vlen == -1)
-    THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
+    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Cannot instant an array with varr(%H:%llu) given nulled",
           varr->_addr, varr->_sz);
   else /* Start allocations */
@@ -121,33 +106,43 @@ _array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr)
 }
 
 void
-_array_delarr(array_t *tar);
-/* PLEASE DO REMEMBER TO REMOVE NULL CHARACTER AT THE END OF THE ARRAY */
+_array_delarr(array_t *tar)
+{
+  if (tar == NULL || tar == nullarrptr)
+    return;
 
-/* TipsForDevls: Reallocate _DST's size when the size of _SRC & _DST
-   does not match */
+  for (register length_t i = 0; i < _array_calclen(tar); i ++)
+    {
+      _var_del(tar[i]);
+      free(tar[i]);
+      tar[i] = NULL;
+    }
+  free(tar);
+  tar = NULL;
+}
+
 rtn_t
 _array_mirror(array_t *dst, const array_t *src);
 
-/* Returns subarray extracted from _src
-   start from index (off - 1) till index (off + len - 1)
-   Throws OutOfBoundException */
 array_t *
 _array_subarr(index_t off, length_t len, array_t *tar);
 
-/* Throws OutOfBoundException,
-          IllegalArgumentException */
 rtn_t
 _array_insert(index_t off, const array_t *src);
 
-/* Throws OutOfBoundException */
 rtn_t
 _array_cutoff(index_t off, length_t len, array_t *tar);
 
-/* Returns true if identical */
 bool
 _array_equals(array_t *dst, array_t *src)
 {
+  nullchk(dst);
+  nullchk(src);
+
+  /* Skip checking once both parameters were "nullarrptr" */
+  if (dst == nullarrptr && src == nullarrptr)
+    return true;
+
   /* property storage */
   const length_t _dst_len = _array_calclen(dst);
   const length_t _src_len = _array_calclen(src);
@@ -160,8 +155,6 @@ _array_equals(array_t *dst, array_t *src)
       {
         auto var_t *_dst_elem = _array_getelem(dst, i);
         auto var_t *_src_elem = _array_getelem(src, i);
-//        if (_dst_elem->_val != _src_elem->_val
-//            || _dst_elem->_sz != _src_elem->_sz)
         if (_var_cmp(_dst_elem, _src_elem))
           return false;
       }

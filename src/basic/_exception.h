@@ -33,16 +33,16 @@ extern "C" {
    par3="Line"=__LINE__;
    par4="Function"=__FUNCTION__ */
 static const char *__restrict__ _EXCEP_FMT =
-"Throwed the %s:\n\tat %s:%ld, func %s\n";
-static const char *__restrict__ _DEF_EXCEP_FMT = "Throwed the %s\n";
+"Threw the %s:\n\tat %s:%ld, func %s\n";
+static const char *__restrict__ _DEF_EXCEP_FMT = "Threw the %s\n";
 
 typedef enum _excep_e
 {
   InstanceFailureException = 500,
   IllegalMemoryAccessException,
-  IllegalArgumentException,
+  InvalidArgumentException,
   OutOfBoundException,
-  IllegalNulledException
+  InvalidNullPointerException
 } excep_e;
 
 /* These exceptions would become a super class which is so-called
@@ -56,7 +56,7 @@ __excep_etos(excep_e _e)
       for good. */
       case InstanceFailureException:
         return "InstanceFailureException";
-      /* When in "_var.h" and "_array.h" ..., it is common to have problemss
+      /* When in "_var.h" and "_array.h" ..., it is common to have problems
          related to bounding restrictions. Therefor, to protect a programme
          by throwing this exception would be a better solution than just
          having a "Segmentation Fault (Core dumped)" in the end of the day. */
@@ -64,17 +64,16 @@ __excep_etos(excep_e _e)
         return "IllegalMemoryAccessException";
       /* When passing through a function with given parameters, it is critical
          to check whether they are qualified for the function to take in.
-         For example, if fucntion "void f(int a)" requires parameter "a"
+         For example, if function "void f(int a)" requires parameter "a"
          NOT to be negative, then we need to throw this exception for safety.
-         
-         This exception is called on first once IllegalNulledException
+         This exception is called on first once InvalidNullPointerException
          involves.
       */
-      case IllegalArgumentException:
-        return "IllegalArgumentException";
+      case InvalidArgumentException:
+        return "InvalidArgumentException";
       /* When in an array, a pointer must NOT go out of the scheduled
          bound that limits the actual physical sizes on the memory.
-         This exception is kind of similarity of IlligalMemoryAccessException.
+         This exception is kind of similarity of IllegalMemoryAccessException.
          However, when using "_var.h" and "_array.h", there would be more
          complex situations that puts variables into a conception of
          generalisation for different size for one single variable.
@@ -84,8 +83,8 @@ __excep_etos(excep_e _e)
         return "OutOfBoundException";
       /* In some particular cases, you would meet on some scenarios
          that restricts the target to NOT be nulled. */
-      case IllegalNulledException:
-        return "IllegalNulledException";
+      case InvalidNullPointerException:
+        return "InvalidNullPointerException";
       /* To be able to throw this exception, you must have typo in
          the name of targeting exception, or simply you just passed an
          unknown exception into this function. Therefor, it is no longer
@@ -101,11 +100,11 @@ __excep_etos(excep_e _e)
 
       THROW(InstanceFailureException, __FILE__, __LINE__, __FUNCTION__,
                                       ~~~^^~~~  ~~~^^~~~  ~~~~^^^^~~~~
-           "Errored when instanting %s.\nGiven options is illegal:\n\
+           "Errored when instancing %s.\nGiven options is illegal:\n\
            %d, %lf", opt1, opt2); */
 static __inline__ void
-THROW(excep_e e, const char *__restrict__ _file, long int _line,
-      const char *__restrict__ _func, const char *__restrict__ _FMT, ...)
+THROW(excep_e e, const char *__restrict__ __file__, long int __line__,
+      const char *__restrict__ __function__, const char *__restrict__ _FMT, ...)
 {
   if (_FMT == NULL)
     {
@@ -116,16 +115,22 @@ THROW(excep_e e, const char *__restrict__ _file, long int _line,
   /* Output secondary description about the thrown exception. */
   va_list _vlist;
   va_start(_vlist, _FMT);
-  fprintf(stderr, ((_file == NULL && _line == -1 && _func == NULL)
+  fprintf(stderr, ((__file__ == NULL && __line__ == -1 && __function__ == NULL)
                    ? _DEF_EXCEP_FMT
                    /* Ignore _FMT when outputting the exception title,
                       use _EXCEP_FMT instead. */
-                   : _EXCEP_FMT), __excep_etos(e), _file, _line, _func);
+                   : _EXCEP_FMT), __excep_etos(e), __file__, __line__, __function__);
   vfprintf(stderr, _FMT, _vlist);
   va_end(_vlist);
 
   exit(EXIT_FAILURE);
 }
+
+/* Throws InvalidNullPointerException */
+#define nullchk(o) {if (o == NULL) THROW(InvalidNullPointerException,\
+__FILE__, __LINE__, __FUNCTION__, "Threw the %s:\n\tat %s:%ld, func %s\n\t\
+#o should not be nulled as NULL being represented as a value of invalidation\
+ in COOL.");}
 
 #endif /* NO _EXCEPTION_H */
 

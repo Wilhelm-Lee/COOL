@@ -95,7 +95,61 @@ _objects_move(objects_t *tar, _objects_move_direction_e direction,
         return felloff;
 
       default:
-        THROW(IllegalArgumentException, __FILE__, __LINE__, __FUNCTION__,
+        THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
               _EXCEP_FMT);
     }
+}
+
+void
+_objects_newobjs(objects_t *tar, _objects_move_indicator_t _indic,
+                 objects_t *_prev, objects_t *_next,
+                 objects_t *_super, objects_t *_successor,
+                 object_t *_obj)
+{
+  tar->_indic = _indic;
+  tar->_prev = _prev;
+  tar->_next = _next;
+  tar->_super = _super;
+  tar->_successor = _successor;
+  tar->_obj = _obj;
+}
+
+void
+_objects_delobjs(objects_t *tar)
+{
+  if (tar == NULL
+      || (tar->_prev == NULL
+          && tar->_next == NULL
+          && tar->_super == NULL
+          && tar->_successor == NULL
+          && tar->_obj == NULL)
+  ) return;
+
+  tar->_indic = 0;
+
+  /* Do chained freedom, HA! HA! HA! HA! HA! */
+  if ( ! _objects_equals(tar->_prev, nullobjsptr))
+    _objects_delobjs(tar->_prev);
+  free(tar->_prev);
+  tar->_prev = NULL;
+
+  if ( ! _objects_equals(tar->_next, nullobjsptr))
+    _objects_delobjs(tar->_next);
+  free(tar->_next);
+  tar->_next = NULL;
+
+  if ( ! _objects_equals(tar->_super, nullobjsptr))
+    _objects_delobjs(tar->_super);
+  free(tar->_super);
+  tar->_super = NULL;
+
+  if ( ! _objects_equals(tar->_successor, nullobjsptr))
+    _objects_delobjs(tar->_successor);
+  free(tar->_successor);
+  tar->_successor = NULL;
+
+  _object_delobj(tar->_obj);
+
+  free(tar);
+  tar = NULL;
 }

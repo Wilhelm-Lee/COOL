@@ -29,8 +29,8 @@ extern "C" {
 
 /* Extern from _exception.h */
 extern __inline__ void
-THROW(excep_e e, const char *__restrict__ _file, long int _line,
-      const char *__restrict__ _func, const char *__restrict__ _FMT, ...);
+THROW(excep_e e, const char *__restrict__ __file__, long int __line__,
+      const char *__restrict__ __function__, const char *__restrict__ _FMT,...);
 
 /* When converting void into ptr with 1 Byte size as char is, we call it vars.
    It stands for "variable size" */
@@ -94,7 +94,11 @@ typedef struct _var_t
 } var_t;
 
 static const var_t nullvar = ((var_t){NULL, 0, NULL});
-# define nullvarptr    ((var_t *)(&nullvar))
+# define nullvarptr ((var_t *)(&nullvar))
+
+/* Throws InvalidNullPointerException */
+void
+__var_nullchk(var_t *v);
 
 void
 _var_new(var_t *v, size_t _sz, char *_val);
@@ -109,21 +113,29 @@ _var_ren(var_t *v, size_t _sz, char *_val);
 /* Return delta of a->_sz and b->_sz
    If <0, then a<b;
    If =0, then a=b;
-   If >0, then a>b; */
+   If >0, then a>b;
+   Throws InvalidArgumentException */
 int
 __var_szcmp(var_t *a, var_t *b);
 
-/* Return 1 for a>b;
-          0 for a==b;
-          -1 for a<b;
-          2 for incompatible */
-int
-_var_cmp(var_t *a, var_t *b);
+/* Returns true if equals;
+   Comparing _sz and _val;
+   Throws InvalidNullPointerException */
+bool
+_var_equals(var_t *a, var_t *b);
 
-/* Returns size of copied buff. -1 for error */
+/* Returns true if they are the same one;
+   Comparing _addr and _sz;
+   Throws InvalidNullPointerException */
+bool
+_var_is(var_t *a, var_t *b);
+
+/* Returns size of copied buff. -1 for error;
+   Throws InvalidNullPointerException */
 int
 _var_cpy(var_t *dst, const var_t *src);
 
+/* Throws InvalidNullPointerException */
 void
 _var_swp(var_t *a, var_t *b);
 

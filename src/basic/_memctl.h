@@ -31,7 +31,7 @@ extern "C" {
 
 # define _MEMSTK_MAX UINT16_MAX
 
-array_t *__restrict __memstk;
+// array_t *__restrict __memstk;
 /* TODO */
 
 /**

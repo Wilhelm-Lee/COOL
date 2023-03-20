@@ -155,7 +155,7 @@ _array_equals(array_t *dst, array_t *src)
       {
         auto var_t *_dst_elem = _array_getelem(dst, i);
         auto var_t *_src_elem = _array_getelem(src, i);
-        if (_var_cmp(_dst_elem, _src_elem))
+        if (_var_equals(_dst_elem, _src_elem))
           return false;
       }
 

@@ -109,7 +109,7 @@ _var_swp(var_t *a, var_t *b)
   nullchk(a);
   nullchk(b);
 
-  var_t *c;
+  var_t *c = nullvarptr;
   _var_new(c, a->_sz, a->_val);
 
   _var_ren(a, b->_sz, b->_val);

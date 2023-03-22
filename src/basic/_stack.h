@@ -40,12 +40,12 @@ typedef struct _stack_t
   /* ... */
 } stack_t;
 
-enum _stkoper_e
+typedef enum _stkoper_e
 {
   PUSH,
   POP,
   PEEK
-};
+} _stkoper_e;
 
 /* Check whether or not _OPERATION would cause any known issues to _STK
    Throws IllegalMemoryAccessException,

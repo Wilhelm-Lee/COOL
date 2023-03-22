@@ -97,6 +97,7 @@ _objects_move(objects_t *tar, _objects_move_direction_e direction,
       default:
         THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
               _EXCEP_FMT);
+        return NULL;
     }
 }
 

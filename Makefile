@@ -1,7 +1,7 @@
 CC = /bin/x86_64-w64-mingw32-cc
 FLAG = -lm -std=c99 -Wall
 
-NAM = COOL_MinGW_Debug
+NAM = COOL_MinGW
 
 OBJECTS = obj/main.o \
 		  obj/_var.o \
@@ -12,35 +12,40 @@ OBJECTS = obj/main.o \
 		  obj/object.o \
 		  obj/objects.o
 
-$(NAM).exe : $(OBJECTS)
-	$(CC) $(FLAG) -O $(OBJECTS) -o build/Debug/$(NAM).exe
+DBIN = build/Debug/$(NAM).exe
+RBIN = build/Release/$(NAM).exe
 
-obj/main.o : obj/objects.o
-	$(CC) -O obj/objects.o -o obj/main.o
+all : $(DBIN)
 
-obj/_var.o : src/basic/_exception.h
-	$(CC) -O src/basic/_exception.h -o obj/_var.o
+$(DBIN) : $(OBJECTS)
+	$(CC) $(FLAG) -O $(OBJECTS) -o $(DBIN)
 
-obj/_array.o : obj/_var.o src/basic/_rtn.h
-	$(CC) -O obj/_var.o src/basic/_rtn.h -o obj/_array.o
+obj/main.o : src/main.c
+	$(CC) $(FLAG) -c src/main.c -o obj/main.o
 
-obj/_memctl.o : src/basic/_rtn.h obj/_array.o
-	$(CC) -O src/basic/_rtn.h obj/_array.o -o obj/_memctl.o
+obj/_var.o : src/basic/_var.c
+	$(CC) $(FLAG) -c src/basic/_var.c -o obj/_var.o
 
-obj/_queue.o : obj/_array.o
-	$(CC) -O obj/_array.o -o obj/_queue.o
+obj/_array.o : src/basic/_array.c
+	$(CC) $(FLAG) -c src/basic/_array.c -o obj/_array.o
 
-obj/_stack.o : obj/_array.o
-	$(CC) -O obj/_array.o -o obj/_stack.o
+obj/_memctl.o : src/basic/_memctl.c
+	$(CC) $(FLAG) -c src/basic/_memctl.c -o obj/_memctl.o
 
-obj/object.o : obj/_array.o
-	$(CC) -O obj/_array.o -o obj/object.o
+obj/_queue.o : src/basic/_queue.c
+	$(CC) $(FLAG) -c src/basic/_queue.c -o obj/_queue.o
 
-obj/objects.o : obj/_array.o
-	$(CC) -O src/advanced/object.h -o obj/objects.o
+obj/_stack.o : src/basic/_stack.c
+	$(CC) $(FLAG) -c src/basic/_stack.c -o obj/_stack.o
 
-## :-(
+obj/object.o : src/advanced/object.c
+	$(CC) $(FLAG) -c src/advanced/object.c -o obj/object.o
 
-.PHONEY : clean
+obj/objects.o : src/advanced/objects.c
+	$(CC) $(FLAG) -c src/advanced/objects.c -o obj/objects.o
+
+.PHONY : clean
 clean:
-	-rm -rv $(OBJECTS)
+	rm -fv $(OBJECTS)
+	rm -fv $(DBIN)
+	rm -fv $(RBIN)

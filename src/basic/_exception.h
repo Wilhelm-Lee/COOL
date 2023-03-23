@@ -42,7 +42,8 @@ typedef enum _excep_e
   IllegalMemoryAccessException,
   InvalidArgumentException,
   OutOfBoundException,
-  InvalidNullPointerException
+  InvalidNullPointerException,
+  OutOfMemoryException
 } excep_e;
 
 /* These exceptions would become a super class which is so-called
@@ -85,6 +86,11 @@ __excep_etos(excep_e _e)
          that restricts the target to NOT be nulled. */
       case InvalidNullPointerException:
         return "InvalidNullPointerException";
+      /* When allocating with allocating functions, usually those who returns
+      NULL means failure of allocations. Out of memory specifically is the major
+      caution. And we use this exception to identify them. */
+      case OutOfMemoryException:
+        return "OutOfMemoryException";
       /* To be able to throw this exception, you must have typo in
          the name of targeting exception, or simply you just passed an
          unknown exception into this function. Therefor, it is no longer

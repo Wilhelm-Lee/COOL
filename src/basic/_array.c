@@ -44,25 +44,29 @@ Given idx was %lu which is out of bound for %lu",
 length_t
 _array_calclen(const array_t *arr)
 {
-  return (strlen((const char *)arr));
+  return (strlen((const char *)arr) + 1);
 }
 
 length_t
-_array_calcvlen(const var_t *varr)
+_array_calcvlen(const var_t **varr)
 {
-  if (varr->_addr == NULL)
+  nullchk(varr);
+
+  if (varr[0]->_addr == nullvarptr)
     return -1;
 
   /* Since varp is used above, and since size of varp is as same as
   char (1 Byte). Thus, having strlen is the same for calculating the length for
   varr */
-  return strlen((const char *)varr);
+  return strlen((const char *)varr[0]);
 }
 
 var_t*
 _array_getelem(array_t *tar, index_t idx)
 {
-  if (tar == NULL)
+  nullchk(tar);
+
+  if (tar == nullarrptr)
     THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Nulled array(%H) does not support extracting element from it", tar);
 
@@ -73,35 +77,22 @@ void
 _array_setelem(array_t *tar, index_t idx, var_t *_var);
 
 void
-_array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr)
+_array_newarr(array_t *tar, length_t len, var_t **varr)
 {
-  if (varr == NULL)
-    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
-          "Initial arr should not be NULL");
+  nullchk(varr);
 
-  if (varr->_sz != _sz)
-    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
-          "Sizes do not match, cannot start initialisation");
-
-  const length_t _vlen = _array_calcvlen(varr);
-  if (_vlen == -1)
-    THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
-          "Cannot instant an array with varr(%H:%llu) given nulled",
-          varr->_addr, varr->_sz);
-  else /* Start allocations */
+  if (_array_calcvlen((const var_t **)varr) == -1)
     {
-      /* In order to properly handle strings, '\0' would requires one more byte while
-         allocating.
-      Plus one for null character ('\0') */
-      tar = (varrp)malloc(_sz * len + 1);
-      for (register length_t i = 0; i < len; i ++)
-        {
-          tar[i]->_addr = malloc(_sz);
-        }
+      THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
+      _EXCEP_FMT);
+    }
 
-      /* Stamp on null character ('\0') */
-      tar[len + 1]->_addr = malloc(sizeof(vars));
-      tar[len + 1] = NULL;
+  tar = (array_t *)malloc(sizeof(varr[0]->_sz) * len);
+  for (register length_t i = 0; i < len; i ++)
+    {
+      if ( (tar[i] = (var_t *)malloc(sizeof(varr[0]->_sz))) == NULL ) /* YOU LEFT HERE */
+        THROW(OutOfMemoryException, __FILE__, __LINE__, __FUNCTION__,
+        _EXCEP_FMT);
     }
 }
 
@@ -113,9 +104,12 @@ _array_delarr(array_t *tar)
 
   for (register length_t i = 0; i < _array_calclen(tar); i ++)
     {
-      _var_del(tar[i]);
+      /* TEST */
+      fprintf(stdout, "delarr: [%llu]%p\n", i, tar[i]); /* YOU LEFT HERE */
+      /* TEST OVER */
+      // _var_del(tar[i]);  /* SEGMENTATION FAULT */
       free(tar[i]);
-      tar[i] = NULL;
+      // tar[i] = NULL;  /* SEGMENTATION FAULT */
     }
   free(tar);
   tar = NULL;

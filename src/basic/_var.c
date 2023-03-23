@@ -25,10 +25,8 @@ extern "C" {
 void
 _var_new(var_t *v, size_t _sz, char *_val)
 {
-  v->_addr = malloc(_sz);
-
   /* Null pointer check */
-  if (v->_addr == NULL)
+  if ( (v->_addr = malloc(_sz)) == NULL)
     THROW(InstanceFailureException, __FILE__, __LINE__, __FUNCTION__,
           "Cannot properly malloc");
 

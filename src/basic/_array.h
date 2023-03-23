@@ -57,7 +57,7 @@ _array_calclen(const array_t *arr);
 /* Returns length of given array of var_t*;
    -1 if not available. */
 length_t
-_array_calcvlen(const var_t *varr);
+_array_calcvlen(const var_t **varr);
 
 /* Throws InvalidArgumentException */
 var_t*
@@ -72,7 +72,7 @@ _array_setelem(array_t *tar, index_t idx, var_t *var);
    Throws InstanceFailureException
           InvalidArgumentException */
 void
-_array_newarr(array_t *tar, size_t _sz, length_t len, const var_t *varr);
+_array_newarr(array_t *tar, length_t len, var_t **varr);
 
 void
 _array_delarr(array_t *tar);

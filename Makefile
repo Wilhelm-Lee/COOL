@@ -49,3 +49,7 @@ clean:
 	rm -fv $(OBJECTS)
 	rm -fv $(DBIN)
 	rm -fv $(RBIN)
+
+.PHONY : test
+test:
+	make clean && make && /usr/bin/wine "Z:\\home\\william\\Documents\\Projects\\COOL_MinGW\\build\\Debug\\COOL_MinGW.exe"

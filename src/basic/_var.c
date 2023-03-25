@@ -22,6 +22,11 @@ extern "C" {
 
 #include "_var.h"
 
+#define _VAR_SZ sizeof(var_t) \
+                + sizeof(void *) \
+                + sizeof(size_t) \
+                + sizeof(char *)
+
 void
 _var_new(var_t *v, size_t _sz, char *_val)
 {
@@ -30,16 +35,15 @@ _var_new(var_t *v, size_t _sz, char *_val)
     THROW(InstanceFailureException, __FILE__, __LINE__, __FUNCTION__,
           "Cannot properly malloc");
 
+  v = (var_t *)malloc(_VAR_SZ);
+  v->_sz = _sz;
   v->_val = _val;
 }
 
 void
 _var_del(var_t *v)
 {
-/* Since a pointer would not be removed after it has been freed, therefor
-   the best way to make it still legal to access is to let it point towards NULL
-*/
-  free(v->_val);
+  free(v->_val); /* YOU LEFT HERE */
   v->_val = NULL;
   free(v->_addr);
   v->_addr = NULL;
@@ -55,6 +59,8 @@ _var_ren(var_t *v, size_t _sz, char *_val)
     THROW(InvalidArgumentException, __FILE__, __LINE__, __FUNCTION__,
           "Cannot reallocate before any initial allocations being done first.");
 
+  /* Due to the unchangeability of _VAR_SZ, there's no need to use "realloc"
+  function */
   _var_del(v);
   _var_new(v, _sz, _val);
 }

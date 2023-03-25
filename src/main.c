@@ -30,13 +30,6 @@
 
 /*** Welcome to COOL MinGW, developers! ***/
 
-/* TEST */
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <strings.h>
-/* TEST OVER */
-
 //# include "_var.h"
 // #include "_array.h"
 #include "advanced/objects.h"
@@ -108,7 +101,7 @@ main(int argc, char *argv[])
   var_t a = nullvar;
   _var_new(&a, sizeof(int), "256");
 
-  fprintf(stdout, "%p\n%lu\n%s\n", a._addr, a._sz, a._val);
+  fprintf(stdout, "%p\n%llu\n%s\n", a._addr, a._sz, a._val);
 
 /* Array type */
   fprintf(stdout, "Array Type\n");
@@ -134,9 +127,51 @@ main(int argc, char *argv[])
   _var_del(&a3);
   _var_del(&a2);
   _var_del(&a1);
+  // fprintf(stdout, "\n\n===ALLOCATION===\n\n");
+  // char *_buff = (char *)malloc(sizeof(char) * 26);
+  // for (register int i = 97; i < (97 + 26); i ++)
+  //   {
+  //     fprintf(stdout, "BEFORE:\t%c\tfrom %p\n", _buff[i], &_buff[i]); /* [a, z] are missing (26 elements) -> [1, 26] */
+  //     _buff[(i-97)] = (char)i;
+  //     fprintf(stdout, "AFTER:\t%c\tfrom %p\n", _buff[i], &_buff[i]);
+  //   }
+  // fprintf(stdout, "%s\n", _buff);
+
+  // /* TEST: test for freeing individual element from char array _buff */
+  // fprintf(stdout, "\n\n===DEALLOCATION===\n\n");
+  // for (register length_t i = 0; i < 26; i ++)
+  //   {
+  //     fprintf(stdout, "BEFORE:\t%c\tfrom %p\n", _buff[i], &_buff[i]); /* [b, q) are missing (16 elements) -> [i=2,i=17) */
+  //     free(&_buff[i]);
+  //     fprintf(stdout, "AFTER:\t%c\tfrom %p\n", _buff[i], &_buff[i]);
+  //   }
+  // /* TEST OVER */
   _array_delarr(&b); /* SEGMENTATION FAULT */
 
-  fprintf(stdout, "%p\n%lu\n%s\n", b[0]._addr, b[0]._sz, b[0]._val);
-  fprintf(stdout, "%p\n%lu\n%s\n", a._addr, a._sz, a._val);
+  // fprintf(stdout, "\n\n===ALLOCATION===\n\n");
+  // char *_buff = (char *)malloc(sizeof(char) * 26);
+  // for (register int i = 97; i < (97 + 26); i ++)
+  //   {
+  //     fprintf(stdout, "BEFORE:\t%c\tfrom %p\n", _buff[i], &_buff[i]); /* [a, z] are missing (26 elements) -> [1, 26] */
+  //     _buff[(i-97)] = (char)i;
+  //     fprintf(stdout, "AFTER:\t%c\tfrom %p\n", _buff[i], &_buff[i]);
+  //   }
+  // fprintf(stdout, "%s\n", _buff);
+
+  // /* TEST: test for freeing individual element from char array _buff */
+  // fprintf(stdout, "\n\n===DEALLOCATION===\n\n");
+  // for (register length_t i = 0; i < 26; i ++)
+  //   {
+  //     fprintf(stdout, "BEFORE:\t%c\tfrom %p\n", _buff[i], &_buff[i]); /* [b, q) are missing (16 elements) -> [i=2,i=17) */
+  //     free(&_buff[i]);
+  //     fprintf(stdout, "AFTER:\t%c\tfrom %p\n", _buff[i], &_buff[i]);
+  //   }
+  // /* TEST OVER */
+
+  // free(_buff);
+  // _buff = NULL;
+
+  // fprintf(stdout, "%s\n", _buff);
+
   return 0;
 }

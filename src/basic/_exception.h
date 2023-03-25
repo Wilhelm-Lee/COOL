@@ -49,9 +49,9 @@ typedef enum _excep_e
 /* These exceptions would become a super class which is so-called
    "Abstract Class". */
 static __inline__ const char *
-__excep_etos(excep_e _e)
+__excep_etos(excep_e e)
 {
-  switch(_e)
+  switch(e)
     {
       /* Once malloc returns NULL, this exception could stop the programme
       for good. */

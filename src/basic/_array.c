@@ -104,12 +104,8 @@ _array_delarr(array_t *tar)
 
   for (register length_t i = 0; i < _array_calclen(tar); i ++)
     {
-      /* TEST */
-      fprintf(stdout, "delarr: [%llu]%p\n", i, tar[i]); /* YOU LEFT HERE */
-      /* TEST OVER */
-      // _var_del(tar[i]);  /* SEGMENTATION FAULT */
+      _var_del(tar[i]);
       free(tar[i]);
-      // tar[i] = NULL;  /* SEGMENTATION FAULT */
     }
   free(tar);
   tar = NULL;

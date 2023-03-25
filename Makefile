@@ -52,4 +52,5 @@ clean:
 
 .PHONY : test
 test:
-	make clean && make && /usr/bin/wine "Z:\\home\\william\\Documents\\Projects\\COOL_MinGW\\build\\Debug\\COOL_MinGW.exe"
+	make clean && make && clear -x && /usr/bin/wine \
+	"Z:\\home\\`whoami`\\Documents\\Projects\\COOL_MinGW\\build\\Debug\\COOL_MinGW.exe"

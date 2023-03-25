@@ -34,12 +34,6 @@ THROW(excep_e e, const char *__restrict__ __file__, long int __line__,
 #  define STACK_MAX 262144LL  /* 256KiB == 262144B <=> 2^18 */
 # endif /* NO STACK_MAX */
 
-typedef struct _stack_t
-{
-  array_t _store;
-  /* ... */
-} stack_t;
-
 typedef enum _stkoper_e
 {
   PUSH,
@@ -47,28 +41,50 @@ typedef enum _stkoper_e
   PEEK
 } _stkoper_e;
 
-/* Check whether or not _OPERATION would cause any known issues to _STK
-   Throws IllegalMemoryAccessException,
+typedef struct stack_t
+{
+  array_t *_arrp;
+  _stkoper_e _oper;
+} stack_t;
+
+typedef enum _stkerr_e
+{
+  NONE = 0,
+  OVERFLOW,
+} _stkerr_e;
+
+/* Check whether or not _OPER would cause any known issues to STK if went on;
+   Returns type of error that occurred
+   Throws InvalidNullPointerException;
+          IllegalMemoryAccessException;
+          OutOfBoundException */
+_stkerr_e
+__stack_opercheck(stack_t *stk, _stkoper_e _oper);
+
+void
+_stack_newstk(stack_t *stk, array_t *_arrp);
+
+void
+_stack_delstk(stack_t *stk);
+
+/* Throws InvalidNullPointerException;
+          IllegalMemoryAccessException;
           OutOfBoundException */
 void
-__stack_opercheck(stack_t _stk, _stkoper_e _operation);
+_stack_push(stack_t *stk);
 
 void
-_stack_newstk(stack_t *_stk);
+_stack_pop(stack_t *stk);
 
-void
-_stack_delstk(stack_t *_stk);
-
-/* Throws EXCEP(__stack_safetycheck) */
-void
-_stack_push(stack_t *_stk);
-
-void
-_stack_pop(stack_t *_stk);
+/* Returns length of stk;
+   Throws InvalidNullPointerException;
+          IllegalMemoryAccessException;
+          OutOfBoundException */
+length_t
+_stack_calclen(stack_t *stk);
 
 #endif /* NO _STACK_H */
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-

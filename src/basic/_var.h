@@ -64,7 +64,7 @@ typedef vars* varp;
  | MAX STORAGE   |   2^16  |   2^32  |   2^64  |
  -----------------------------------------------
  **/
-#  if defined __x86_64__ || defined __x86_64 || defined _WIN64
+#  if defined _WIN64 || defined __x86_64__ || defined __x86_64
 typedef uint64_t numeric_t;
 #  elif defined _WIN32 || defined __x86_32
 typedef uint32_t numeric_t;

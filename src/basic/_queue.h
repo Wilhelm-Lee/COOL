@@ -16,17 +16,18 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #ifndef _QUEUE_H
 # define _QUEUE_H
 
 #include "_array.h"
-
-#endif /* NO _QUEUE_H */
+#include <sys/cdefs.h>
 
 #ifdef __cplusplus
-}
+__BEGIN_DECLS
 #endif /* __cplusplus */
+
+#ifdef __cplusplus
+__END_DECLS
+#endif /* __cplusplus */
+
+#endif /* NO _QUEUE_H */

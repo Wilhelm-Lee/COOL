@@ -17,12 +17,7 @@
  */
 
 /* PLEASE BE AWARE, DIRECTLY CALL ON ANY OF THESE METHODS OR VARIABLES
-   IN THIS FILE WOULD EVENTUALLY CAUSE UNMANAGEABLE MEMORY MANAGEMENT BY COOL.
-*/
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+   IN THIS FILE WOULD EVENTUALLY CAUSE UNMANAGEABLE MEMORY MANAGEMENT BY COOL.*/
 
 #ifndef _ARRAY_H
 # define _ARRAY_H
@@ -30,6 +25,10 @@ extern "C" {
 # include <stdio.h>
 # include "_var.h"
 # include "_rtn.h"
+
+#ifdef __cplusplus
+__BEGIN_DECLS
+#endif /* __cplusplus */
 
 # ifndef ARRAY_T
 typedef var_t* array_t;
@@ -102,8 +101,8 @@ _array_cutoff(numeric_t off, length_t len, array_t *tar);
 bool
 _array_equals(array_t *dst, array_t *src);
 
-#endif /* NO _ARRAY_H */
-
 #ifdef __cplusplus
-}
+__END_DECLS
 #endif /* __cplusplus */
+
+#endif /* NO _ARRAY_H */

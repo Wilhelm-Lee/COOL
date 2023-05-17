@@ -16,6 +16,6 @@ _object_delobj(object_t *tar)
 
   _array_delarr(tar->_fields);
   _array_delarr(tar->_methods);
-  free(tar);
   tar = NULL;
+  free(tar);
 }

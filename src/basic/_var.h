@@ -16,16 +16,17 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #ifndef _VAR_H
 # define _VAR_H
 
+# include <sys/cdefs.h> /* __BEGIN_DECLS; __END_DECLS */
 # include <stdbool.h>
 # include <stdint.h>
 # include "_exception.h"
+
+#ifdef __cplusplus
+__BEGIN_DECLS
+#endif /* __cplusplus */
 
 /* Extern from _exception.h */
 extern __inline__ void
@@ -139,8 +140,8 @@ _var_cpy(var_t *dst, const var_t *src);
 void
 _var_swp(var_t *a, var_t *b);
 
-#endif /* NO _VAR_H */
-
 #ifdef __cplusplus
-}
+__END_DECLS
 #endif /* __cplusplus */
+
+#endif /* NO _VAR_H */

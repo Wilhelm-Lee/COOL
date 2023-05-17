@@ -15,10 +15,6 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <string.h>
 #include "_array.h"
 
@@ -87,7 +83,7 @@ _array_newarr(array_t *tar, length_t len, var_t **varr)
       _EXCEP_FMT);
     }
 
-  tar = (array_t *)malloc(sizeof(varr[0]->_sz) * len);
+  tar = (array_t *)malloc(varr[0]->_sz * len);
   for (register length_t i = 0; i < len; i ++)
     {
       if ( (tar[i] = (var_t *)malloc(sizeof(varr[0]->_sz))) == NULL ) /* YOU LEFT HERE */
@@ -151,7 +147,3 @@ _array_equals(array_t *dst, array_t *src)
 
    return true;
 }
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */

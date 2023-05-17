@@ -16,10 +16,6 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #ifndef _EXCEPTION_H
 # define _EXCEPTION_H
 
@@ -27,6 +23,10 @@ extern "C" {
 # include <stdlib.h>
 # include <string.h>
 # include <stdarg.h>
+
+#ifdef __cplusplus
+__BEGIN_DECLS
+#endif /* __cplusplus */
 
 /* par1="Exception"=_excep_e;
    par2="File"=__FILE__;
@@ -53,7 +53,7 @@ __excep_etos(excep_e e)
 {
   switch(e)
     {
-      /* Once malloc returns NULL, this exception could stop the programme
+      /* Once malloc returns NULL, this exception could stop the program
       for good. */
       case InstanceFailureException:
         return "InstanceFailureException";
@@ -115,7 +115,7 @@ THROW(excep_e e, const char *__restrict__ __file__, long int __line__,
   if (_FMT == NULL)
     {
       fprintf(stderr, _DEF_EXCEP_FMT, __excep_etos(e));
-      exit(EXIT_FAILURE);
+      exit(e);
     }
 
   /* Output secondary description about the thrown exception. */
@@ -123,13 +123,13 @@ THROW(excep_e e, const char *__restrict__ __file__, long int __line__,
   va_start(_vlist, _FMT);
   fprintf(stderr, ((__file__ == NULL && __line__ == -1 && __function__ == NULL)
                    ? _DEF_EXCEP_FMT
-                   /* Ignore _FMT when outputting the exception title,
-                      use _EXCEP_FMT instead. */
+                   /* Ignore _FMT when outputting the exception title.
+                      Use _EXCEP_FMT instead. */
                    : _EXCEP_FMT), __excep_etos(e), __file__, __line__, __function__);
   vfprintf(stderr, _FMT, _vlist);
   va_end(_vlist);
 
-  exit(EXIT_FAILURE);
+  exit(e);
 }
 
 /* Throws InvalidNullPointerException */
@@ -138,8 +138,8 @@ __FILE__, __LINE__, __FUNCTION__, "Threw the %s:\n\tat %s:%ld, func %s\n\t\
 #o should not be nulled as NULL being represented as a value of invalidation\
  in COOL.");}
 
-#endif /* NO _EXCEPTION_H */
-
 #ifdef __cplusplus
-}
+__END_DECLS
 #endif /* __cplusplus */
+
+#endif /* NO _EXCEPTION_H */

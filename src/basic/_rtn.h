@@ -16,10 +16,6 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #ifndef _RTN_H
 # define _RTN_H
 
@@ -34,8 +30,3 @@ typedef int rtn_t;
 # define RETURN_SUCCESS 1
 
 #endif /* NO _RTN_H */
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-

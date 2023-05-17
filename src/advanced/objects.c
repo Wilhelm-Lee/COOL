@@ -131,26 +131,26 @@ _objects_delobjs(objects_t *tar)
   /* Do chained freedom, HA! HA! HA! HA! HA! */
   if ( ! _objects_equals(tar->_prev, nullobjsptr))
     _objects_delobjs(tar->_prev);
-  free(tar->_prev);
   tar->_prev = NULL;
+  free(tar->_prev);
 
   if ( ! _objects_equals(tar->_next, nullobjsptr))
     _objects_delobjs(tar->_next);
-  free(tar->_next);
   tar->_next = NULL;
+  free(tar->_next);
 
   if ( ! _objects_equals(tar->_super, nullobjsptr))
     _objects_delobjs(tar->_super);
-  free(tar->_super);
   tar->_super = NULL;
+  free(tar->_super);
 
   if ( ! _objects_equals(tar->_successor, nullobjsptr))
     _objects_delobjs(tar->_successor);
-  free(tar->_successor);
   tar->_successor = NULL;
+  free(tar->_successor);
 
   _object_delobj(tar->_obj);
 
-  free(tar);
   tar = NULL;
+  free(tar);
 }

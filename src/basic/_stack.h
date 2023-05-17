@@ -16,14 +16,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #ifndef _STACK_H
 # define _STACK_H
 
 # include "_array.h"
+
+#ifdef __cplusplus
+__BEGIN_DECLS
+#endif /* __cplusplus */
 
 /* Extern from _exception.h */
 extern __inline__ void
@@ -83,8 +83,8 @@ _stack_pop(stack_t *stk);
 length_t
 _stack_calclen(stack_t *stk);
 
-#endif /* NO _STACK_H */
-
 #ifdef __cplusplus
-}
+__END_DECLS
 #endif /* __cplusplus */
+
+#endif /* NO _STACK_H */

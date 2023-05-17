@@ -18,16 +18,16 @@
 
 /* Semi-Auto release malloc-ed memory spaces by using _stack.h */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #ifndef _MEMCTL_H
 # define _MEMCTL_H
 
 # include <stdint.h>
 # include "_rtn.h"
 # include "_array.h"
+
+#ifdef __cplusplus
+__BEGIN_DECLS
+#endif /* __cplusplus */
 
 # define _MEMSTK_MAX UINT16_MAX
 
@@ -41,8 +41,8 @@ extern "C" {
 void
 _memctl_stkfree(index_t idx);
 
-#endif /* NO _MEMCTL_H */
-
 #ifdef __cplusplus
-}
+__END_DECLS
 #endif /* __cplusplus */
+
+#endif /* NO _MEMCTL_H */

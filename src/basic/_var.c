@@ -16,10 +16,6 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include "_var.h"
 
 #define _VAR_SZ sizeof(var_t) \
@@ -121,7 +117,3 @@ _var_swp(var_t *a, var_t *b)
 
   _var_del(c);
 }
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */

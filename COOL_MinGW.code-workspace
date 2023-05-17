@@ -1,0 +1,36 @@
+{
+    "folders": [
+        {
+            "name": "Carnival",
+            "path": "../Carnival"
+        },
+        {
+            "name": "COOL_MinGW",
+            "path": "."
+        },
+        {
+            "name": "JackNTFS",
+            "path": "../JackNTFS"
+        },
+        {
+            "name": "WillNTFS",
+            "path": "../WillNTFS"
+        },
+        {
+            "name": "JackCraftCommodoreLauncher",
+            "path": "../JackCraftCommodoreLauncher"
+        },
+        {
+            "name": "ExFC",
+            "path": "../ExFC"
+        },
+        {
+            "path": "../Que"
+        }
+    ],
+    "settings": {
+        "cSpell.words": [
+            "arrlen"
+        ]
+    }
+}

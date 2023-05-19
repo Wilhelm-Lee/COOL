@@ -30,7 +30,7 @@
  * cannot be accessed (ineffective).
  *
  * Attributions are customisable.  You can create new attributions and define
- * its behaviours.
+ * their behaviours.
  *
  * Attributions are inheritable.  You can inherit any attribution for your
  * attributions.
